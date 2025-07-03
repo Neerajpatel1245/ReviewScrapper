@@ -22,6 +22,9 @@ def index():
             flipkart_html = bs(response.text, "html.parser")
             bigboxes = flipkart_html.findAll("div", {"class": "tUxRFH"})
             del bigboxes[0:3]
+            if not bigboxes:
+                print("No products found on Flipkart for:", searchString)
+                return "No products found. Please try a different search."
             box = bigboxes[0]
             productLink = "https://www.flipkart.com" + box.a['href']
             prodRes = requests.get(productLink)
